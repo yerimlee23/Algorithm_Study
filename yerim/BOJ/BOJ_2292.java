@@ -1,3 +1,6 @@
+//20260202
+//백준 브론즈2 2292 벌집
+
 import java.io.*;
 
 public class BOJ_2292 {
