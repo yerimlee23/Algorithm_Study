@@ -1,3 +1,6 @@
+//20260202
+//백준 브론즈5 2438 별찍기1
+
 import java.io.*;
 
 public class BOJ_2438 {
