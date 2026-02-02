@@ -8,17 +8,12 @@ public class BOJ_2292{
         
         int N = sc.nextInt(); //방 번호
         int sum = 1; //(이동횟수별)방 번호 구간 최댓값
-        int num = 0;//이동횟수
+        int num = 1;//이동횟수
         
-        int i = 0;
-        for(;;) {
-            sum += i*6; //다음 구간 최댓값
+        while(N > sum) { //구간 최댓값 sum보다 N(방번호)이 크면 이동횟수(구간) num 증가++ 반복
+            sum += num*6; //다음 구간 최댓값
             num ++; //이동횟수 1증가
-            if (sum >= N) { //N이 구간 최댓값보다 같거나 작을 때 num은 최소 이동횟수
-                System.out.println(num);
-                break;
-            }
-            i++; //N 구간 내 포함 X 시 반복 진행
         }
+        System.out.println(num); //N이 구간최댓값 sum
     }
 }
