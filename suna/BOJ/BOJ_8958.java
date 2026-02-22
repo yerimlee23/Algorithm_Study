@@ -6,7 +6,6 @@ public class Main {
 		int N = sc.nextInt();
 
 		for (int k = 0; k < N; k++) {
-			
 			String str = sc.next();
 			int combo = 0;
 			int score = 0;
