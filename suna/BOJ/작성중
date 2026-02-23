@@ -1,0 +1,72 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String str = sc.next();
+
+		Stack<String> stack = new Stack<>();
+		StringBuilder sb = new StringBuilder();
+
+		// 들어오는게 < 이거면 > 이거 나올때까지 프린트
+		// > 이거 나오면 < 이거 나올때까지 스택
+
+		boolean ok = false; // ok이면 <> 안의 내용들
+		for (int i = 0; i < str.length(); i++) {
+			char a = str.charAt(i);
+			// 만약 들어오는게 < -> 바로 출력,
+
+			if (a == '<') {
+				System.out.print(a);
+				ok = true;
+			} else if (a == '>') {
+				ok = false;
+				System.out.print(a);
+			}
+			
+			if(ok)
+				System.out.print(a);
+			else // <>이 아닐 때
+				stack.add(a);
+			
+		}
+		int i = 0;
+		while (ok && i < str.length()) {
+			char a = str.charAt(i);
+			System.out.print(a);
+
+		}
+
+		int T = sc.nextInt();
+		mainloop: for (int i = 0; i < T; i++) {
+			////////////////////////////////////////////
+			int numA = sc.nextInt();
+			int[] acnt = new int[4]; // 0인덱스는 4(별), 1인덱스는 3(동그라미), 2인덱스는 2(네모), 3인덱스는 1(세모)
+			for (int j = 0; j < numA; j++)
+				acnt[4 - sc.nextInt()]++;
+
+			int numB = sc.nextInt();
+			int[] bcnt = new int[4]; // 0인덱스는 4(별), 1인덱스는 3(동그라미), 2인덱스는 2(네모), 3인덱스는 1(세모)
+			for (int j = 0; j < numB; j++)
+				bcnt[4 - sc.nextInt()]++;
+
+			// 비교
+			for (int k = 0; k < 4; k++) {
+				if (bcnt[k] > acnt[k]) {
+					System.out.println("B");
+					continue mainloop;
+				} else if (bcnt[k] < acnt[k]) {
+					System.out.println("A");
+					continue mainloop;
+				}
+			}
+
+			System.out.println("D");
+
+			//////////////////////////////////////////
+		}
+
+	}
+
+}
