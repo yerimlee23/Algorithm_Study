@@ -2,7 +2,7 @@
 //백준 브론즈2 2292번 벌집
 import java.util.Scanner;
 
-public class BOJ_2292{
+public class BOJ_2292_벌집{
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
