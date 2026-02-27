@@ -1,0 +1,105 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int N = Integer.parseInt(br.readLine());
+
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int[] map = new int[N];
+		for (int i = 0; i < N; i++)
+			map[i] = Integer.parseInt(st.nextToken());
+
+		int M = Integer.parseInt(br.readLine());
+
+		for (int i = 0; i < M; i++) {
+			st = new StringTokenizer(br.readLine());
+			int gender = Integer.parseInt(st.nextToken());
+			int a = Integer.parseInt(st.nextToken());
+			int b = a;
+			// 남학생일때
+			if (gender == 1) {
+				while (b <= N) {
+					map[b - 1] = 1 - map[b - 1];
+					b += a;
+				}
+			}
+			// 여학생일때 - 인덱스 범위 밖이거나 대칭이 아닐때까지만 while문 돌리기
+			else {
+				int start = (a - 1) - 1, end = (a - 1) + 1;
+				while (start >= 0 && end < N) {
+					if (map[start] != map[end])
+						break;
+					map[start] = 1 - map[start];
+					map[end] = 1 - map[end];
+					start--;
+					end++;
+				}
+				map[a - 1] = 1 - map[a - 1];
+			}
+		}
+
+		for (int i = 0; i < N; i++) {
+			System.out.print(map[i] + " ");
+			if (i % 20 == 19)
+				System.out.println();
+		}
+
+	}
+}
+
+
+// 코드2 scanner
+
+//import java.util.Scanner;
+//
+//public class Main{
+//	public static void main(String[] args) {
+//		Scanner sc = new Scanner(System.in);
+//		int N = sc.nextInt();
+//		int[] map = new int[N];
+//		for(int j = 0; j<N; j++)
+//			map[j] = sc.nextInt();
+//		
+//		
+//		int M = sc.nextInt();
+//		for(int i = 0; i<M; i++) {
+//			int gender = sc.nextInt();
+//			int a = sc.nextInt();
+//			int b = a;
+//			// 남학생일때
+//			if (gender == 1) {
+//				while (b <= N) {
+//					map[b - 1] = 1 - map[b - 1];
+//					b += a;
+//				}
+//			}
+//			// 여학생일때
+//			else {
+//				int start = (a - 1) - 1, end = (a - 1) + 1;
+//				while (start >= 0 && end < N) {
+//					if (map[start] != map[end])
+//						break;
+//					map[start] = 1 - map[start];
+//					map[end] = 1 - map[end];
+//					start--;
+//					end++;
+//				}
+//				map[a - 1] = 1 - map[a - 1];
+//			}
+//		}
+//		
+//		for (int i = 0; i < N; i++) {
+//			System.out.print(map[i] + " ");
+//			if (i % 20 == 19)
+//				System.out.println();
+//		}
+//		
+//		
+//		
+//	}
+//}

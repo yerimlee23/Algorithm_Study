@@ -1,0 +1,153 @@
+import java.util.Scanner;
+ 
+public class Solution {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		for (int t = 1; t <= T; t++) {
+			/////////////////////////////////////////
+
+			int n = sc.nextInt();
+			int[][] map = new int[n][n];
+			int num = 1;
+
+			// k개의 껍질이 존재한다고 생각
+			for (int k = 0; k < n / 2; k++) {
+				// 왼쪽 - 행은 k, 열은 k부터 n-k-1 이전까지.
+				for (int i = k; i < n - k - 1; i++)
+					map[k][i] = num++;
+
+				// 아래 = 열은 n-k-1, 행은 k+1부터 n-k-1 이전까지
+				for (int j = k; j < n - k - 1; j++)
+					map[j][n - k - 1] = num++;
+
+				// 오른쪽 - 행은 n-k-1, 열은 n-k-1부터 k까지
+				for (int i = n - k - 1; i >= k; i--)
+					map[n - k - 1][i] = num++;
+
+				// 위 - 열은 k, 행은 n-k-1-1에서 k+1까지
+				for (int j = n - k - 2; j > k; j--)
+					map[j][k] = num++;
+
+			}
+
+			// 한 변이 홀수 일 경우 가운데 자리가 비어있음
+			if (n % 2 == 1)
+				map[n / 2][n / 2] = n *n;
+			
+			// 출력부
+			System.out.println("#"+t);
+			for (int[] a : map) {
+				for (int b : a)
+					System.out.printf("%d ", b);
+				System.out.println("");
+			}
+
+		}
+		/////////////////////////////////////////
+	}
+}
+
+
+// sol2
+
+//public class Solution{
+//	static int[][] map;
+//	public static void main(String[] args) {
+//		Scanner sc = new Scanner(System.in);
+//		int T = sc.nextInt();
+//		for (int t = 1; t <= T; t++) {
+//			/////////////////////////////////////////
+//
+//			int n = sc.nextInt();
+//			map = new int[n][n];
+//			
+//			drawSnail(0,0,n,1);			
+//
+//			// 출력부
+//			System.out.println("#"+t);
+//			for (int[] a : map) {
+//				for (int b : a)
+//					System.out.printf("%d ", b);
+//				System.out.println("");
+//			}
+//
+//		}
+//		/////////////////////////////////////////
+//	}
+//	
+//	static void drawSnail(int x, int y, int size, int startnum) {
+//		// 사이즈가 0이면 종료
+//		if(size ==0)
+//			return;
+//		// 한 칸만 남으면
+//		if(size ==1) {
+//			map[x][y]= startnum;
+//			return;
+//		}
+//		
+//		for(int i = 0; i<size-1;i++) // 우측으로
+//			map[x][y+i] = startnum++;
+//		for(int i = 0; i<size -1 ; i++)// 아래쪽으로
+//			map[x+i][y+size -1] = startnum++;
+//		for(int i = 0; i<size-1; i++)//좌측으로
+//			map[x+size-1][y+size-1-i]=startnum++;
+//		for(int i = 0; i<size -1 ;i++)// 위쪽으로
+//			map[x+size-1-i][y] = startnum++;
+//		int current = startnum;
+//		
+//		drawSnail(x+1,y+1, size-2, current);
+//	}
+//}
+
+
+// sol3
+//
+//import java.util.Scanner;
+//
+//public class Solution {
+//     
+//    static int[][] snail;
+//     
+//    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+//         
+//        int T = sc.nextInt();
+//        for(int tc=1; tc<=T; tc++) {
+//            int N = sc.nextInt();
+//            snail = new int[N][N];
+//             
+//            int dir = 1, num = 1;
+//            int x = 0, y = -1;
+//            while(N>0) {
+//                for(int i=0; i<N; i++) {
+//                    y += dir;
+//                    snail[x][y] = num++;
+//                }
+//                N--;
+//                for(int i=0; i<N; i++) {
+//                    x += dir;
+//                    snail[x][y] = num++;
+//                }
+//                dir *= -1;
+//            }
+//            System.out.println("#"+tc);
+//            for(int[] aa:snail) {
+//                for(int a:aa) System.out.print(a+" ");
+//                System.out.println();
+//            }
+//        }       
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+
+
