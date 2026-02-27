@@ -3,7 +3,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class BOJ_2309{
+public class BOJ_2309_일곱난쟁이{
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int[] small = new int[9]; //9명 키 담을 배열 생성
