@@ -22,6 +22,28 @@ SWEA, 백준 알고리즘 5문제 풀이 -> 핵심 로직, 어려웠던 점 공�
 
 -----------------------------------------------------------------------------------------------
 
+🚩백준 그룹 문제집: 입문편
+
+https://www.acmicpc.net/group/workbook/view/24944/88076
+
+🚩백준 그룹 문제집: SW역량평가 IM 문제
+
+https://www.acmicpc.net/group/workbook/view/24944/88077
+
+🚩백준 그룹 문제집: SW역량평가 A형 문제
+
+https://www.acmicpc.net/group/workbook/view/24944/88078
+
+-----------------------------------------------------------------------------------------------
+
 ✔️Notion
 
 https://breezy-desert-a5c.notion.site/2-SSAFY-2fa96229f2d6805fb015e090d39240ad
+
+✔️Notion: GitHub commit/push 가이드
+
+https://www.notion.so/GitHub-commit-push-2fa96229f2d68096b78de0819021bcb0?source=copy_link
+
+✔️Notion: GitHub 초기 설정 가이드
+
+https://www.notion.so/GitHub-2fa96229f2d68048bae9c03ee7ab25b5?source=copy_link
