@@ -1,6 +1,7 @@
+//260303
 import java.util.*;
 
-public class 17070_파이프옮기기 {
+public class 17070 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
