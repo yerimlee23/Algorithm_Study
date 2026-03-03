@@ -24,7 +24,7 @@ public class 9940 {
 				}
 			}
 			
-			System.out.println("#" + t + ans);
+			System.out.println("#" + t + " " + ans);
 		}
 	}
 }
