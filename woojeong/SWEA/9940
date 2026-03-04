@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class 9940 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int tc = sc.nextInt(); //테케
+		for(int t = 1; t<=tc; t++) {
+			int n = sc.nextInt(); // 순열 길이
+			int[] perm = new int[n];
+			
+			for(int i = 0; i<n; i++) {
+				perm[i] = sc.nextInt();
+			}
+			
+			String ans = "Yes";
+			int[] real = new int[n+1];
+			for(int i = 0; i<n; i++) {
+				int tmp = perm[i];
+				real[tmp]++;
+				if(real[tmp] > 1) {
+					ans = "No";
+					break;
+				}
+			}
+			
+			System.out.println("#" + t + " " + ans);
+		}
+	}
+}

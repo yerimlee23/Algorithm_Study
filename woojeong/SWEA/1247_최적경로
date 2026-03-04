@@ -1,0 +1,64 @@
+import java.util.*;
+
+public class 1247_최적경로 {
+
+    static int n;
+    static int[][] loc;
+    static boolean[] visited;
+    static int min;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int tc = sc.nextInt();
+        for (int t = 1; t <= tc; t++) {
+
+            n = sc.nextInt();
+            loc = new int[n + 2][2];
+            visited = new boolean[n + 2];
+            min = Integer.MAX_VALUE;
+
+            // 회사
+            loc[0][0] = sc.nextInt();
+            loc[0][1] = sc.nextInt();
+
+            // 집
+            loc[n + 1][0] = sc.nextInt();
+            loc[n + 1][1] = sc.nextInt();
+
+            // 고객
+            for (int i = 1; i <= n; i++) {
+                loc[i][0] = sc.nextInt();
+                loc[i][1] = sc.nextInt();
+            }
+
+            dfs(0, 0, 0);
+
+            System.out.println("#" + t + " " + min);
+        }
+    }
+
+    // 현재 위치, 방문한 고객 수, 누적 거리
+    static void dfs(int current, int count, int distance) {
+        if (distance >= min) return; //최소거리보다 크면 패스
+
+        // 모든 고객 방문 완료
+        if (count == n) {
+            distance += getDist(current, n + 1); // 집으로 이동
+            min = Math.min(min, distance); 
+            return;
+        }
+
+        for (int i = 1; i <= n; i++) { //고객 방문순서 모든 경우(순열)
+            if (!visited[i]) {
+                visited[i] = true;
+                dfs(i, count + 1, distance + getDist(current, i));
+                visited[i] = false;
+            }
+        }
+    }
+
+    static int getDist(int a, int b) {
+        return Math.abs(loc[a][0] - loc[b][0]) + Math.abs(loc[a][1] - loc[b][1]);
+    }
+}
