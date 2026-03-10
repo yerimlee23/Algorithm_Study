@@ -1,0 +1,140 @@
+import java.util.*;
+
+public class BOJ_17135 {
+    static int N, M, D;             // 격자 크기, 공격 사거리
+    static int[][] ori;             // 초기 적 배치
+    static int[] arc = new int[3];  // 궁수 위치
+    static int max = 0;             // 최대 킬 수
+
+    // BFS 탐색 방향: 왼쪽 → 위 → 오른쪽
+    static int[] dr = {0, -1, 0};
+    static int[] dc = {-1, 0, 1};
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        N = sc.nextInt();
+        M = sc.nextInt();
+        D = sc.nextInt();
+
+        ori = new int[N][M];
+        for(int i=0;i<N;i++)
+            for(int j=0;j<M;j++)
+                ori[i][j] = sc.nextInt();
+
+        // 궁수 3명 위치 조합 생성 & 시뮬레이션 실행
+        comb(0,0);
+
+        // 최대 킬 수 출력
+        System.out.println(max);
+    }
+
+    // 궁수 3명 위치 조합 생성 (1~M중 3개 조합)
+    static void comb(int start, int cnt){
+        if(cnt==3){
+            sim(); // 궁수 위치 선택 완료 → 적 죽이기
+            return;
+        }
+        for(int i=start;i<M;i++){
+            arc[cnt] = i;       // 궁수 위치 설정
+            comb(i+1, cnt+1);  // 다음 궁수 위치 선택
+        }
+    }
+
+    // 적 죽이기
+    static void sim(){
+
+        // 맵 복사 (원본 유지)
+        *왜 해야지 안 틀릴까??
+        int[][] map = new int[N][M];
+        for(int i=0;i<N;i++) map[i] = ori[i].clone();
+
+        int kill = 0; // 이번 조합에서 죽인 적 수
+
+        while(true){ // 적이 남아있는 동안 반복
+        // 적 존재 확인
+            boolean exist = false;
+            for(int i=0;i<N;i++)
+                for(int j=0;j<M;j++)
+                    if(map[i][j]==1) exist = true; //적 존재
+
+            if(!exist) break; // 적 격자판에 없으면 종료
+
+            // 이번 턴 공격 좌표 표시
+            boolean[][] atk = new boolean[N][M];
+
+            for(int i=0;i<3;i++){
+                int[] t = bfs(arc[i], map); // BFS로 각 궁수 타겟 찾기
+                if(t!=null) //*???
+                    atk[t[0]][t[1]] = true; // 공격 표시
+            }
+
+            // 공격(적  제거)
+            for(int i=0;i<N;i++)
+                for(int j=0;j<M;j++)
+                    if(atk[i][j] && map[i][j]==1){
+                        map[i][j]=0;
+                        kill++;
+                    }
+
+            // 적 한 칸 아래로 이동
+            for(int i=N-1;i>0;i--)
+                for(int j=0;j<M;j++)
+                    map[i][j] = map[i-1][j];
+
+            // 맨 위 행 초기화
+            for(int j=0;j<M;j++)
+                map[0][j] = 0;
+        }
+
+        // 최대 킬 수 갱신
+        max = Math.max(max, kill);
+    }
+
+    // BFS: 가장 가까운 적 찾기
+    static int[] bfs(int col, int[][] map){
+        // BFS 대기열: [행, 열, 거리]
+        Queue<int[]> que = new ArrayDeque<>();
+        boolean[][] vis = new boolean[N][M];
+
+        int[] start = new int[3];
+        start[0] = N-1;     // 궁수 바로 위 행
+        start[1] = col;     // 궁수 열
+        start[2] = 1;       // 거리
+        que.offer(start);
+        vis[N-1][col] = true;
+
+        while(!que.isEmpty()){
+
+            int[] cur = que.poll();
+            int r = cur[0], c = cur[1], d = cur[2];
+
+            // 사거리 초과면 무시
+            if(d>D) continue;
+
+            // 적 발견
+            if(map[r][c]==1){
+                int[] res = new int[2];
+                res[0] = r;
+                res[1] = c;
+                return res; // 좌표 반환
+            }
+
+            // 왼→위→오 탐색
+            for(int i=0;i<3;i++){
+                int nr = r+dr[i], nc = c+dc[i];
+                if(nr>=0 && nc>=0 && nr<N && nc<M && !vis[nr][nc]){
+                    vis[nr][nc] = true;
+
+                    int[] next = new int[3];
+                    next[0]=nr;
+                    next[1]=nc;
+                    next[2]=d+1;
+                    que.offer(next);
+                }
+            }
+        }
+
+        return null; // 공격할 적 없음
+    }
+}
